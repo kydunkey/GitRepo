@@ -1,0 +1,37 @@
+USE [sdetest]
+GO
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+ALTER VIEW
+
+[sde].[vw_WQ_ssPipe_ActivePMList_line]
+
+AS
+
+SELECT
+
+gis.PIPEID,
+pmlist.OnPM_Schedule,
+pmlist.[PM_DateAdded],
+pmlist.[PM_Cause],
+pmlist.[PM_Frequency],
+pmlist.[PM_Comments],
+gis.Shape
+
+FROM
+
+[GCSQL1].[AccelaProd].[dbo].[vw_SanSewerPipeAttr] as pmlist JOIN dl.SS_Pipe as gis
+
+ON pmlist.[PipeID] = gis.PIPEID
+
+WHERE
+
+pmlist.[OnPM_Schedule] = 'Y'
